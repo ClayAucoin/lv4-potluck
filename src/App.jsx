@@ -3,6 +3,7 @@ import PotluckMeals from "./components/PotluckMeals";
 import PotluckBeverages from "./components/PotluckBeverages";
 import PotluckUtensils from "./components/PotluckUtensils";
 import GuestList from "./components/GuestList";
+import GuestListPlain from "./components/GuestListPlain";
 import supabase from "./utils/supabase";
 import "./App.css";
 
@@ -23,6 +24,10 @@ function App() {
     setCurrentPage("guest-list");
   }
 
+  function goToGuestsPlain() {
+    setCurrentPage("guest-list-plain");
+  }
+
   function goToUtensils() {
     setCurrentPage("utensils");
   }
@@ -31,6 +36,10 @@ function App() {
 
   if (currentPage === "guest-list") {
     pageContent = <GuestList />;
+  }
+
+  if (currentPage === "guest-list-plain") {
+    pageContent = <GuestListPlain />;
   }
 
   if (currentPage === "meals") {
@@ -86,20 +95,32 @@ function App() {
     <>
       <div className="container m-4">
         <div className="card p-2" style={{ width: "600px" }}>
-          <div className="card-body">
-            <div className="d-flex justify-content-around">
-              <button className="btn btn-primary" onClick={goToGuests}>
-                Guest List
-              </button>
-              <button className="btn btn-primary" onClick={goToMeals}>
-                Check Meals
-              </button>
-              <button className="btn btn-primary" onClick={goToBeverages}>
-                Check Beverages
-              </button>
-              <button className="btn btn-primary" onClick={goToUtensils}>
-                Check Utensils
-              </button>
+          <div className="card-body text-center">
+            <div className="d-flex justify-content-around row">
+              <div className="col m-1">
+                <button className="btn btn-primary m-1" onClick={goToGuests}>
+                  Guest List
+                </button>
+                <button
+                  className="btn btn-primary m-1"
+                  onClick={goToGuestsPlain}
+                >
+                  Guest List Plain
+                </button>
+              </div>
+            </div>
+            <div className="d-flex justify-content-around row">
+              <div className="col">
+                <button className="btn btn-primary m-1" onClick={goToMeals}>
+                  Check Meals
+                </button>
+                <button className="btn btn-primary m-1" onClick={goToBeverages}>
+                  Check Beverages
+                </button>
+                <button className="btn btn-primary m-1" onClick={goToUtensils}>
+                  Check Utensils
+                </button>
+              </div>
             </div>
             {loginForm}
           </div>

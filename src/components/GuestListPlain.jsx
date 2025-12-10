@@ -2,33 +2,29 @@ import { useState, useEffect } from "react";
 import supabase from "../utils/supabase";
 import beveragesImage from "../images/beverages.jpg";
 
-export default function GuestList() {
+export default function GuestListPlain() {
   const isTesting = false;
 
   const [guests, setGuests] = useState([]);
   const [errMsg, setErrMsg] = useState("");
 
-  // retrieve data from potluck_guests
+  // retrieve data from potluck_beverages
   async function handleFetch() {
-    // get data from supabase
     const { data, error } = await supabase
       .from("potluck_guests")
       .select()
       .order("first_name")
       .order("last_name");
 
-    // check for error
     if (error) {
       console.log(error);
       setErrMsg(error.message);
       setGuests([]);
       return;
     }
-    // update useState with latest data
     setGuests(data);
   }
 
-  // load data on open
   useEffect(() => {
     handleFetch();
   }, []);
@@ -37,29 +33,23 @@ export default function GuestList() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // get values from form
     const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
 
-    // create new object
     const newFullName = {
       first_name: firstName,
       last_name: lastName,
     };
 
-    // insert new data into potluck_guests
     const { error } = await supabase.from("potluck_guests").insert(newFullName);
 
-    // update with the latest data from supabase
     handleFetch();
 
-    // if not testing, reset all fields to blank
     if (!isTesting) {
       e.target.elements.firstName.value = "";
       e.target.elements.lastName.value = "";
     }
 
-    // check for error
     if (error) {
       console.log(error);
       setErrMsg(error.message);
