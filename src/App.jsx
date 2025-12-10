@@ -1,95 +1,95 @@
-import { useState } from "react";
-import PotluckMeals from "./components/PotluckMeals";
-import PotluckBeverages from "./components/PotluckBeverages";
-import PotluckUtensils from "./components/PotluckUtensils";
-import GuestList from "./components/GuestList";
-import GuestListPlain from "./components/GuestListPlain";
-import supabase from "./utils/supabase";
-import "./App.css";
+import { useState } from "react"
+import PotluckMeals from "./components/PotluckMeals"
+import PotluckBeverages from "./components/PotluckBeverages"
+import PotluckUtensils from "./components/PotluckUtensils"
+import GuestList from "./components/GuestList"
+import GuestListPlain from "./components/GuestListPlain"
+// import supabase from "./utils/supabase"
+import "./App.css"
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("guest-list");
+  const [currentPage, setCurrentPage] = useState("guest-list")
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   function goToMeals() {
-    setCurrentPage("meals");
+    setCurrentPage("meals")
   }
 
   function goToBeverages() {
-    setCurrentPage("beverages");
+    setCurrentPage("beverages")
   }
 
   function goToGuests() {
-    setCurrentPage("guest-list");
+    setCurrentPage("guest-list")
   }
 
   function goToGuestsPlain() {
-    setCurrentPage("guest-list-plain");
+    setCurrentPage("guest-list-plain")
   }
 
   function goToUtensils() {
-    setCurrentPage("utensils");
+    setCurrentPage("utensils")
   }
 
-  let pageContent;
+  let pageContent
 
   if (currentPage === "guest-list") {
-    pageContent = <GuestList />;
+    pageContent = <GuestList />
   }
 
   if (currentPage === "guest-list-plain") {
-    pageContent = <GuestListPlain />;
+    pageContent = <GuestListPlain />
   }
 
   if (currentPage === "meals") {
-    pageContent = <PotluckMeals />;
+    pageContent = <PotluckMeals />
   }
 
   if (currentPage === "beverages") {
-    pageContent = <PotluckBeverages />;
+    pageContent = <PotluckBeverages />
   }
 
   if (currentPage === "utensils") {
-    pageContent = <PotluckUtensils />;
+    pageContent = <PotluckUtensils />
   }
 
-  async function handleLogin(e) {
-    e.preventDefault();
+  // async function handleLogin(e) {
+  //   e.preventDefault()
 
-    const email = e.target.elements.email.value;
-    const password = e.target.elements.email.value;
-    console.log(email, password);
+  //   const email = e.target.elements.email.value
+  //   const password = e.target.elements.email.value
+  //   console.log(email, password)
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: "example@email.com",
-      password: "example-password",
-    });
+  //   const { data, error } = await supabase.auth.signInWithPassword({
+  //     email: "example@email.com",
+  //     password: "example-password",
+  //   })
 
-    if (data.user) {
-      setUser(data.user);
-    }
+  //   if (data.user) {
+  //     setUser(data.user)
+  //   }
 
-    if (error) {
-      console.log(error);
-      alert(error);
-    }
-  }
+  //   if (error) {
+  //     console.log(error)
+  //     alert(error)
+  //   }
+  // }
 
-  const loginForm = (
-    <div>
-      <h3>Login</h3>
-      <form action="">
-        <label htmlfor="">Email</label>
-        <input type="email" name="email" id="email"></input>
-        <label htmlfor="">Password</label>
-        <input type="password" name="password" id="passowrd"></input>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
-    </div>
-  );
+  // const loginForm = (
+  //   <div>
+  //     <h3>Login</h3>
+  //     <form onSubmit="handleLogin">
+  //       <label htmlfor="">Email</label>
+  //       <input type="email" name="email" id="email"></input>
+  //       <label htmlfor="">Password</label>
+  //       <input type="password" name="password" id="passowrd"></input>
+  //       <button type="submit" onClick={handleLogin}>
+  //         Login
+  //       </button>
+  //     </form>
+  //   </div>
+  // )
 
   return (
     <>
@@ -122,14 +122,14 @@ function App() {
                 </button>
               </div>
             </div>
-            {loginForm}
+            {/* {loginForm} */}
           </div>
         </div>
       </div>
       {pageContent}
       {/* {user.email} */}
     </>
-  );
+  )
 }
 
-export default App;
+export default App
